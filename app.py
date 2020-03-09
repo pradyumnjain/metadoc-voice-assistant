@@ -17,7 +17,7 @@ class testinfo(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('disease',type=str,required=True,help='cant be blank')
         try:
-            parser.add_argument('date',type=int,required=True,help='cant be blank')
+            parser.add_argument('date',type=str,required=True,help='cant be blank')
         except:
             print("invalid data type")
 
