@@ -102,10 +102,40 @@ class testinfo(Resource):
         print(data['disease'])
         print(data['date'])
         return {"status":"successfull"}
+
+
+class bookslots(Resource):
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('slot',type=str,required=True,help='cant be blank')
+        parser.add_argument('date',type=str,required=True,help='cant be blank')
+        data = parser.parse_args()
+        date = data['date']
+        date = date.split(" ")
+        for dat in date:
+            try:
+                if type(int(dat)) == int:
+                    date = int(dat)
+                    break
+            except:
+                continue
+        slot = data['slot']
+        slot = slot.split(" ")
+        for dat in slot:
+            try:
+                if type(int(dat)) == int:
+                    slot = int(dat)
+                    break
+            except:
+                continue
+        return {"test":"{}".format(slot)}
+              
+
+
         
 
 
-
+api.add_resource(bookslot,'/bookslot')
 api.add_resource(checkdate,'/checkdate')
 api.add_resource(HelloWorld, '/')
 api.add_resource(testinfo,'/test')
