@@ -123,8 +123,14 @@ class bookslot(Resource):
         slot = slot.split(" ")
         for dat in slot:
             try:
-                if type(int(dat)) == int:
-                    slot = dat
+                if 3 in dat:
+                    slot = 3
+                    break
+                if 4 in dat:
+                    slot = 4
+                    break
+                if 5 in dat:
+                    slot = 5
                     break
             except:
                 continue
