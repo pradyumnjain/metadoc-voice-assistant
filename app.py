@@ -53,7 +53,7 @@ class checkslots(Resource):
                     for val in d.keys():
                         if "available" in d[val]:
                             avail = avail + "{} and".format(val)
-                        return {"availability":"{}".format(avail)}
+                    return {"availability":"{}".format(avail)}
 
 
                 else:
