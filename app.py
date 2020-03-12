@@ -140,7 +140,7 @@ class bookslot(Resource):
                         if slot in k:
                             cur['slots'][k] = "taken"
                             break
-        db.child("date_slots").child("{}",format(date)).update(cur)
+        db.child("date_slots").child("{}".format(date)).update(cur)
         return {"result":"{}".format(cur)}
 
 
