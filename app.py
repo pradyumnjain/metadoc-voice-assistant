@@ -28,7 +28,7 @@ class HelloWorld(Resource):
 
 class checkslots(Resource):
     def post(self):
-        parser = reqparse.RequestParser()
+        parser =  reqparse.RequestParser()
         parser.add_argument('date',type=str,required=True,help="cant be blank")
         data = parser.parse_args()
         date = data['date']
