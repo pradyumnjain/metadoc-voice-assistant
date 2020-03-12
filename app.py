@@ -136,6 +136,9 @@ class bookslot(Resource):
                 if '5' in dat:
                     slot = "5"
                     break
+                else:
+                    return {"result":"invalid"}
+
             except:
                 continue
         
