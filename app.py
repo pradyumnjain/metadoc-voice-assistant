@@ -32,6 +32,7 @@ class checkslots(Resource):
         parser.add_argument('date',type=str,required=True,help="cant be blank")
         data = parser.parse_args()
         date = data['date']
+        date = date.split(" ")
         for dat in date:
             try:
                 if type(int(dat)) == int:
@@ -53,7 +54,7 @@ class checkslots(Resource):
             else:
                 data = {"date":"{}".format(date),"slots":{"3pm":"available","4pm":"available","5pm":"available"}}
                 db.child("date_slots").child("{}".format(date)).set(data)
-                return {" ":"available slots are 3 to 4 pm , 4 to 5 pm , 5 to 6 pm "}
+                return {"availability":"available slots are 3 to 4 pm , 4 to 5 pm , 5 to 6 pm "}
         except:
             data = {"date":"{}".format(date),"slots":{"3pm":"available","4pm":"available","5pm":"available"}}
             db.child("date_slots").child("{}".format(date)).set(data)
