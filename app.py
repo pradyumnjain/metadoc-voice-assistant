@@ -34,6 +34,7 @@ class checkslots(Resource):
         date = data['date']
         date = date.split(" ")
         for dat in date:
+            dat = dat.strip("th")
             try:
                 if type(int(dat)) == int:
                     date = int(dat)
@@ -79,6 +80,7 @@ class checkdate(Resource):
         date = date.split(" ")
         for dat in date:
             try:
+                dat.strip("th")
                 if type(int(dat)) == int:
                     return {"validity":"valid"}
             except:
@@ -113,6 +115,7 @@ class bookslot(Resource):
         date = data['date']
         date = date.split(" ")
         for dat in date:
+            dat = dat.strip("th")
             try:
                 if type(int(dat)) == int:
                     date = int(dat)
@@ -123,13 +126,13 @@ class bookslot(Resource):
         slot = slot.split(" ")
         for dat in slot:
             try:
-                if 3 in dat:
+                if '3' in dat:
                     slot = 3
                     break
-                if 4 in dat:
+                if '4' in dat:
                     slot = 4
                     break
-                if 5 in dat:
+                if '5' in dat:
                     slot = 5
                     break
             except:
