@@ -124,12 +124,30 @@ class bookslot(Resource):
         for dat in slot:
             try:
                 if type(int(dat)) == int:
-                    slot = int(dat)
+                    slot = dat
                     break
             except:
                 continue
-        return {"test":"{}".format(slot)}
-              
+        
+        slot =  slot + "pm"
+
+        db =  firebase.database()
+        all_dates = db.child("date_slots").get()
+        for dat in all_dates.each():
+                cur = dat.val()
+                if cur['date'] == '{}'.format(date):
+                    for k in cur['slots'].keys():
+                        if slot in k:
+                            cur['slots']['k'] = "taken"
+                            break
+        db.child("date_slots").child("date").update(cur)
+        return {"result":"{}".format(cur)}
+
+
+
+
+
+
 
 
         
