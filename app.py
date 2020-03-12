@@ -55,7 +55,7 @@ class checkslots(Resource):
             else:
                 data = {"date":"{}".format(date),"slots":{"3pm":"available","4pm":"available","5pm":"available"}}
                 db.child("date_slots").child("{}".format(date)).set(data)
-                return {"availability":"{}.format(date)"}
+                return {"availability":"{}".format(date)}
         except:
             data = {"date":"{}".format(date),"slots":{"3pm":"available","4pm":"available","5pm":"available"}}
             db.child("date_slots").child("{}".format(date)).set(data)
