@@ -47,20 +47,27 @@ class checkslots(Resource):
                 cur = dat.val()
                 if cur['date'] == '{}'.format(date):
                     flag = 1
-                    break
+                    d = cur["slots"]
+                    avail = "available slots are from"
+                    for val in d.keys():
+                        if "available" in d[val]:
+                            avail + "{} and".format(val)
+                        return {"availability":"{}".format(avail)}
+
+
                 else:
                     flag=0
             if flag==1:
-                print(1)
+                pass
             else:
                 data = {"date":"{}".format(date),"slots":{"3pm":"available","4pm":"available","5pm":"available"}}
                 db.child("date_slots").child("{}".format(date)).set(data)
-                return {"availability":"{}".format(date)}
+                return {"availability":"available slots are from 3 pm and 4 pm and 5 pm"}
         except:
             data = {"date":"{}".format(date),"slots":{"3pm":"available","4pm":"available","5pm":"available"}}
             db.child("date_slots").child("{}".format(date)).set(data)
             print(2)
-            return {"availability":"{}".format(date)}
+            return {"availability":"available slots are from 3 pm and 4 pm and 5 pm"}
 
 
 class checkdate(Resource):
