@@ -34,8 +34,8 @@ class checkslots(Resource):
         date = data['date']
         date = date.split(" ")
         for dat in date:
-            dat = dat.strip("th")
             try:
+                dat = dat.strip("th")
                 if type(int(dat)) == int:
                     date = int(dat)
                     break
@@ -52,7 +52,7 @@ class checkslots(Resource):
                     avail = "available slots are from"
                     for val in d.keys():
                         if "available" in d[val]:
-                            avail + "{} and".format(val)
+                            avail = avail + "{} and".format(val)
                         return {"availability":"{}".format(avail)}
 
 
@@ -80,7 +80,7 @@ class checkdate(Resource):
         date = date.split(" ")
         for dat in date:
             try:
-                dat.strip("th")
+                dat = dat.strip("th")
                 if type(int(dat)) == int:
                     return {"validity":"valid"}
             except:
