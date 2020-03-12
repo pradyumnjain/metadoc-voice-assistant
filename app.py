@@ -47,7 +47,7 @@ class testinfo(Resource):
 
 
 
-
+api.add_resource(checkdate,'/checkdate')
 api.add_resource(HelloWorld, '/')
 api.add_resource(testinfo,'/test')
 
