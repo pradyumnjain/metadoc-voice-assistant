@@ -48,17 +48,17 @@ class checkslots(Resource):
                     break
                 else:
                     flag=0
-        if flag==1:
-            print(1)
-        else:
+            if flag==1:
+                print(1)
+            else:
+                data = {"date":"{}".format(date),"slots":{"3pm":"available","4pm":"available","5pm":"available"}}
+                db.child("date_slots").child("{}".format(date)).set(data)
+                return {" ":"available slots are 3 to 4 pm , 4 to 5 pm , 5 to 6 pm "}
+        except:
             data = {"date":"{}".format(date),"slots":{"3pm":"available","4pm":"available","5pm":"available"}}
             db.child("date_slots").child("{}".format(date)).set(data)
+            print(2)
             return {"availability":"available slots are 3 to 4 pm , 4 to 5 pm , 5 to 6 pm "}
-    except:
-        data = {"date":"{}".format(date),"slots":{"3pm":"available","4pm":"available","5pm":"available"}}
-        db.child("date_slots").child("{}".format(date)).set(data)
-        print(2)
-        return {"availability":"available slots are 3 to 4 pm , 4 to 5 pm , 5 to 6 pm "}
 
 
 class checkdate(Resource):
