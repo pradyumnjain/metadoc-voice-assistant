@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "144181365638",
+    "firebase_url": "https://marvel-cinematic-univers-55f23.firebaseio.com",
+    "project_id": "marvel-cinematic-univers-55f23",
+    "storage_bucket": "marvel-cinematic-univers-55f23.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:144181365638:android:e19594ceff5ade228bfa07",
+        "android_client_info": {
+          "package_name": "com.gautam.metadoc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "144181365638-i88ulcgv0j5u2e0dis9at61c7bnc1l2r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gautam.metadoc",
+            "certificate_hash": "579d2278ec691dc6208b8b2ebf32fff5325cff28"
+          }
+        },
+        {
+          "client_id": "144181365638-rn30vs4opavuihfnbjnnkdlllr4mnf9v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChcqeRev-mxaNt7mx0nkUekr6IJqJ4jWA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "144181365638-iqua5v08tebpstke66h0136276h1fpme.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
