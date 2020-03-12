@@ -138,9 +138,9 @@ class bookslot(Resource):
                 if cur['date'] == '{}'.format(date):
                     for k in cur['slots'].keys():
                         if slot in k:
-                            cur['slots']['k'] = "taken"
+                            cur['slots'][k] = "taken"
                             break
-        db.child("date_slots").child("date").update(cur)
+        db.child("date_slots").child("{}",format(date)).update(cur)
         return {"result":"{}".format(cur)}
 
 
