@@ -52,7 +52,7 @@ class checkslots(Resource):
                     avail = "available slots are from"
                     for val in d.keys():
                         if "available" in d[val]:
-                            avail = avail + "{} and".format(val)
+                            avail = avail + "{} ..".format(val)
                     return {"availability":"{}".format(avail)}
 
 
@@ -154,7 +154,7 @@ class bookslot(Resource):
                             cur['slots'][k] = "taken"
                             break
         db.child("date_slots").child("{}".format(date)).update(cur)
-        return {"result":"{}".format(cur)}
+        return {"result":"{}".format(slot)}
 
 
 
