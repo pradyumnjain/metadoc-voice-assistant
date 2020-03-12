@@ -114,16 +114,15 @@ class bookslot(Resource):
         data = parser.parse_args()
         date = data['date']
         date = date.split(" ")
-        try:
-            for dat in date:
-                dat = dat.strip("th")
-                try:
-                    if type(int(dat)) == int:
-                        date = int(dat)
-                        break
-                except:
-                    continue
-        except
+
+        for dat in date:
+            dat = dat.strip("th")
+            try:
+                if type(int(dat)) == int:
+                    date = int(dat)
+                    break
+            except:
+                continue
         slot = data['slot']
         slot = slot.split(" ")
         for dat in slot:
