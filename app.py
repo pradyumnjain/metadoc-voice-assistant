@@ -104,7 +104,7 @@ class testinfo(Resource):
         return {"status":"successfull"}
 
 
-class bookslots(Resource):
+class bookslot(Resource):
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('slot',type=str,required=True,help='cant be blank')
