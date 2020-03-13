@@ -5,12 +5,15 @@ import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
+from flask import Flask
+from flask_restful import Resource, Api, reqparse
 
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
-def main():
+
+def reminder(name,date,slot):
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
@@ -33,20 +36,19 @@ def main():
     service = build('calendar', 'v3', credentials=creds)
 
     event = {
-      'summary': 'Google I/O 2015',
-      'location': '800 Howard St., San Francisco, CA 94103',
-      'description': 'A chance to hear more about Google\'s developer products.',
+      'summary': 'appointment with doctor',
+      'location': '',
+      'description': 'visit doctor and get yourself checked',
       'start': {
-        'dateTime': '2020-05-08T09:00:30-00:30',
-        'timeZone': 'Asia/Kolkata',
+        'dateTime': '2020-05-{}T09:00:30-0{}:30'.format(date,slot),
+        'timeZone': 'America/Los_Angeles',
       },
-
       'end': {
-        'dateTime': '2020-05-08T09:00:30-00:30',
-        'timeZone': 'Asia/Kolkata',
+        'dateTime': '2020-05-{}T09:00:30-0{}:30'.format(date,slot),
+        'timeZone': 'America/Los_Angeles',
       },
       'recurrence': [
-        'RRULE:FREQ=DAILY;COUNT=1'
+        ''
       ],
       'attendees': [
         {'email': 'pradyumn25jain@gmail.com'}
@@ -61,10 +63,40 @@ def main():
       },
     }
 
-    event = service.events().insert(calendarId='primary', body=event).execute()
-    print('Event created: %s' % (event.get('htmlLink')))
+    try:
+    	event = service.events().insert(calendarId='primary', body=event).execute()
+    	print('Event created: %s' % (event.get('htmlLink')))
+    	return "event created"
+    except:
+    	return "something went wrong"
 
 
+
+@app.route('/gsync', methods=['POST'])
+class gsync(Resource):
+
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('date',type=str,required=True,help='cant be blank')
+        parser.add_argument('slot',type=str,required=True,help='cant be blank')
+
+    		data = parser.parse_args()
+    		date = data['date']
+    		slot = data['slot']
+        if "3" in slot:
+          slot == 0
+        if "4" in slot:
+          slot == 1
+        else:
+          slot == 2
+    		return {"status":"{}".format(reminder(int(date),int(slot)))}
+
+
+
+
+
+# api.add_resource(gsync,'/gsync')
 
 if __name__ == '__main__':
-    main()
+    app.run(debug=True)
+
