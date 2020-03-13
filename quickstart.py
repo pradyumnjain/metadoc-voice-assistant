@@ -15,6 +15,14 @@ def main():
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
+    date = 1
+    slot = 4
+    if slot==3:
+      slot=0
+    if slot==4:
+      slot=1
+    else:
+      slot=2
     if os.path.exists('token.pickle'):
         with open('token.pickle', 'rb') as token:
             creds = pickle.load(token)
@@ -33,16 +41,16 @@ def main():
     service = build('calendar', 'v3', credentials=creds)
 
     event = {
-      'summary': 'Google I/O 2015',
-      'location': '800 Howard St., San Francisco, CA 94103',
-      'description': 'A chance to hear more about Google\'s developer products.',
+      'summary': 'appointment with the doctor',
+      'location': 'clinic',
+      'description': 'get yourself checked ',
       'start': {
-        'dateTime': '2020-05-08T09:00:30-00:30',
+        'dateTime': '2020-03-{}T09:00:30-0{}:30'.format(date,slot),
         'timeZone': 'Asia/Kolkata',
       },
 
       'end': {
-        'dateTime': '2020-05-08T09:00:30-00:30',
+        'dateTime': '2020-03-{}T09:00:30-0{}:30'.format(date,slot),
         'timeZone': 'Asia/Kolkata',
       },
       'recurrence': [

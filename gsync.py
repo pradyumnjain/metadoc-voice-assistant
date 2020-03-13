@@ -5,15 +5,14 @@ import os.path
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
-from flask import Flask
+from flask import Flask,jsonify,request,render_template
 from flask_restful import Resource, Api, reqparse
+
 
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
-
-
-def reminder(name,date,slot):
+def reminder(date,slot):
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
@@ -40,11 +39,11 @@ def reminder(name,date,slot):
       'location': '',
       'description': 'visit doctor and get yourself checked',
       'start': {
-        'dateTime': '2020-05-{}T09:00:30-0{}:30'.format(date,slot),
+        'dateTime': '2020-05-11T09:00:30-00:30',
         'timeZone': 'America/Los_Angeles',
       },
       'end': {
-        'dateTime': '2020-05-{}T09:00:30-0{}:30'.format(date,slot),
+        'dateTime': '2020-05-11T09:00:30-00:30',
         'timeZone': 'America/Los_Angeles',
       },
       'recurrence': [
@@ -72,31 +71,28 @@ def reminder(name,date,slot):
 
 
 
-@app.route('/gsync', methods=['POST'])
-class gsync(Resource):
-
-    def post(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('date',type=str,required=True,help='cant be blank')
-        parser.add_argument('slot',type=str,required=True,help='cant be blank')
-
-    		data = parser.parse_args()
-    		date = data['date']
-    		slot = data['slot']
-        if "3" in slot:
-          slot == 0
-        if "4" in slot:
-          slot == 1
-        else:
-          slot == 2
-    		return {"status":"{}".format(reminder(int(date),int(slot)))}
 
 
 
 
+def main():
 
-# api.add_resource(gsync,'/gsync')
+
+    date = "23"
+    slot = "3"
+
+    if "3" in slot:
+      slot == 0
+    if "4" in slot:
+      slot == 1
+    else:
+      slot == 2
+
+    print("status {}".format(reminder(int(date),int(slot))))
+
+ 
+    
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    main()
 
