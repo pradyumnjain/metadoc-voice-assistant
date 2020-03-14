@@ -30,18 +30,9 @@ class HelloWorld(Resource):
 class checkslots(Resource):
     def post(self):
         parser =  reqparse.RequestParser()
-        parser.add_argument('date',type=str,required=True,help="cant be blank")
+        parser.add_argument('new_date',type=str,required=True,help="cant be blank")
         data = parser.parse_args()
-        date = data['date']
-        date = date.split(" ")
-        for dat in date:
-            try:
-                dat = dat.strip("th")
-                if type(int(dat)) == int:
-                    date = int(dat)
-                    break
-            except:
-                continue
+        date = data['new_date']
         db = firebase.database()
         try:
             all_dates = db.child("date_slots").get()
@@ -49,18 +40,16 @@ class checkslots(Resource):
                 cur = dat.val()
                 if cur['date'] == '{}'.format(date):
                     flag = 1
-                    d = cur["slots"]
-                    avail = "available slots are from"
-                    for val in d.keys():
-                        if "available" in d[val]:
-                            avail = avail + "{} ..".format(val)
-                    return {"availability":"{}".format(avail)}
-
-
+                    break
                 else:
                     flag=0
             if flag==1:
-                pass
+                d = cur["slots"]
+                avail = "available slots are from"
+                for val in d.keys():
+                    if "available" in d[val]:
+                        avail = avail + "{} ..".format(val)
+                return {"availability":"{}".format(avail)}
             else:
                 data = {"date":"{}".format(date),"slots":{"3pm":"available","4pm":"available","5pm":"available"}}
                 db.child("date_slots").child("{}".format(date)).set(data)
@@ -78,22 +67,13 @@ class checkdate(Resource):
         parser.add_argument('date',type=str,required=True,help="cant be blank")
         data = parser.parse_args()
         date = data['date']
-        date1 = date.split(" ")
         date = date.split("-")
         try:
             dat = date[2]
             if type(int(dat)) == int:
                 return {"validity":"valid","date":"{}".format(dat)}
         except:
-            for dat in date1:
-                try:
-                    if type(dat) == int:
-                        return {"validity":"valid","date":"{}".format(dat)}
-                    else:
-                        continue
-                except:
-                    continue
-        return {"validity":"invalid"}
+            return {"validity":"invalid","date":"{}".format(date)}
 
 
 class testinfo(Resource):
