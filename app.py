@@ -48,8 +48,12 @@ class checkslots(Resource):
                 avail = "available slots are from  "
                 for val in d.keys():
                     if "available" in d[val]:
+                        flag =1
                         avail = avail + "{} ..".format(val)
-                return {"availability":"{}".format(avail)}
+                if flag==1:
+                    return {"availability":"{}".format(avail)}
+                else:
+                    return {"availability":"no free slots available try another date"}
             else:
                 data = {"date":"{}".format(date),"slots":{"3pm":"available","4pm":"available","5pm":"available"}}
                 db.child("date_slots").child("{}".format(date)).set(data)
@@ -102,23 +106,19 @@ class bookslot(Resource):
         data = parser.parse_args()
         date = data['date']
         slot = data['slot']
-        slot = slot.split(" ")
-        for dat in slot:
-            try:
-                if '3' in dat:
-                    slot = "3"
-                    break
-                if '4' in dat:
-                    slot = "4"
-                    break
-                if '5' in dat:
-                    slot = "5"
-                    break
-                else:
-                    return {"result":"invalid"}
+        print(slot)
+        if '3' in slot:
+            slot = "3"
+            break
+        else if '4' in slot:
+            slot = "4"
+            break
+        else if '5' in slot:
+            slot = "5"
+            break
+        else:
+            return {"result":"invalid"}
 
-            except:
-                continue
 
 
 
