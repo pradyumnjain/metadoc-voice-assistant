@@ -109,13 +109,10 @@ class bookslot(Resource):
         print(slot)
         if '3' in slot:
             slot = "3"
-            break
         elif '4' in slot:
             slot = "4"
-            break
         elif '5' in slot:
             slot = "5"
-            break
         else:
             return {"result":"invalid"}
 
