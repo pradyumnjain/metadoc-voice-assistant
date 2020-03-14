@@ -80,7 +80,6 @@ class checkdate(Resource):
         date = data['date']
         date1 = date.split(" ")
         date = date.split("-")
-        dat = date[2]
         try:
             dat = date[2]
             if type(int(dat)) == int:
