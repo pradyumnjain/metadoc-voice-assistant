@@ -89,7 +89,7 @@ class checkdate(Resource):
             for dat in date1:
                 try:
                     if type(dat) == int:
-                        return {"validity":"valid","{}".format(dat)}
+                        return {"validity":"valid","date":"{}".format(dat)}
                     else:
                         continue
                 except:
