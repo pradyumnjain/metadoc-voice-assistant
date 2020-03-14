@@ -110,10 +110,10 @@ class bookslot(Resource):
         if '3' in slot:
             slot = "3"
             break
-        else if '4' in slot:
+        elif '4' in slot:
             slot = "4"
             break
-        else if '5' in slot:
+        elif '5' in slot:
             slot = "5"
             break
         else:
