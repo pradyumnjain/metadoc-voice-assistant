@@ -78,14 +78,13 @@ class checkdate(Resource):
         parser.add_argument('date',type=str,required=True,help="cant be blank")
         data = parser.parse_args()
         date = data['date']
-        date = date.split(" ")
-        for dat in date:
-            try:
-                dat = dat.strip("th")
-                if type(int(dat)) == int:
-                    return {"validity":"valid"}
-            except:
-                continue
+        date = date.split("-")
+        dat = date[2]
+        try:
+            if type(int(dat)) == int:
+                return {"validity":"valid"}
+        except:
+            continue
         return {"validity":"invalid"}
 
 
