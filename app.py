@@ -45,7 +45,7 @@ class checkslots(Resource):
                     flag=0
             if flag==1:
                 d = cur["slots"]
-                avail = "available slots are from"
+                avail = "available slots are from  "
                 for val in d.keys():
                     if "available" in d[val]:
                         avail = avail + "{} ..".format(val)
