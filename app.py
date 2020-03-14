@@ -101,16 +101,6 @@ class bookslot(Resource):
         parser.add_argument('date',type=str,required=True,help='cant be blank')
         data = parser.parse_args()
         date = data['date']
-        date = date.split(" ")
-
-        for dat in date:
-            dat = dat.strip("th")
-            try:
-                if type(int(dat)) == int:
-                    date = int(dat)
-                    break
-            except:
-                continue
         slot = data['slot']
         slot = slot.split(" ")
         for dat in slot:
@@ -144,8 +134,9 @@ class bookslot(Resource):
                     for k in cur['slots'].keys():
                         if slot in k:
                             cur['slots'][k] = "taken"
+                            db.child("date_slots").child("{}".format(date)).update(cur)
                             break
-        db.child("date_slots").child("{}".format(date)).update(cur)
+
         return {"result":"{}".format(slot)}
 
 
