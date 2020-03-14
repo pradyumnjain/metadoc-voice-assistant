@@ -86,12 +86,14 @@ class checkdate(Resource):
             if type(int(dat)) == int:
                 return {"validity":"valid"}
         except:
-            try:
-                for dat in date1:
+            for dat in date1:
+                try:
                     if type(dat) == int:
                         return {"validity":"valid"}
-            except:
-                continue
+                    else:
+                        continue
+                except:
+                    continue
         return {"validity":"invalid"}
 
 
