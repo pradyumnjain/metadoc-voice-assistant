@@ -106,33 +106,33 @@ class bookslot(Resource):
         data = parser.parse_args()
         date = data['date']
         slot = data['slot']
-        # print(slot)
-        # if '3' in slot:
-        #     slot = "3"
-        # elif '4' in slot:
-        #     slot = "4"
-        # elif '5' in slot:
-        #     slot = "5"
-        # else:
-        #     return {"result":"invalid"}
+        print(slot)
+        if '3' in slot:
+            slot = "3"
+        elif '4' in slot:
+            slot = "4"
+        elif '5' in slot:
+            slot = "5"
+        else:
+            return {"result":"invalid"}
 
 
 
 
-        #  #start over here................       
+         #start over here................       
         
-        # slot =  slot + "pm"
+        slot =  slot + "pm"
 
-        # db =  firebase.database()
-        # all_dates = db.child("date_slots").get()
-        # for dat in all_dates.each():
-        #         cur = dat.val()
-        #         if cur['date'] == '{}'.format(date):
-        #             for k in cur['slots'].keys():
-        #                 if slot in k:
-        #                     cur['slots'][k] = "taken"
-        #                     db.child("date_slots").child("{}".format(date)).update(cur)
-        #                     break
+        db =  firebase.database()
+        all_dates = db.child("date_slots").get()
+        for dat in all_dates.each():
+                cur = dat.val()
+                if cur['date'] == '{}'.format(date):
+                    for k in cur['slots'].keys():
+                        if slot in k:
+                            cur['slots'][k] = "taken"
+                            db.child("date_slots").child("{}".format(date)).update(cur)
+                            break
 
         return {"result":"{}".format(slot)}
 
