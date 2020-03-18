@@ -1,65 +1,43 @@
 package com.gautam.metadoc
 
-import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
+import android.R.attr
+import android.app.Activity
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
 import android.view.View
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_record.*
 
+
 class RecordActivity : AppCompatActivity() {
-
-    private lateinit var speechRecognizerViewModel: SpeechRecognizerViewModel
-
+    val REQUEST_CODE = 123
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_record)
-        micButton = findViewById<Button>(R.id.mic_button).apply {
-            setOnClickListener(micClickListener)
-        }
 
-        setupSpeechViewModel()
+
     }
-
-    private val micClickListener = View.OnClickListener {
-        if (!speechRecognizerViewModel.permissionToRecordAudio) {
-            ActivityCompat.requestPermissions(this, )
-            return@OnClickListener
-        }
-
-        if (speechRecognizerViewModel.isListening) {
-            speechRecognizerViewModel.stopListening()
-        } else {
-            speechRecognizerViewModel.startListening()
+    fun onClick(v: View?) { //Trigger the RecognizerIntent intent//
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        try {
+            startActivityForResult(intent, 123)
+        } catch (a: ActivityNotFoundException) {
         }
     }
 
-    private fun setupSpeechViewModel() {
-        speechRecognizerViewModel = ViewModelProviders.of(this).get(SpeechRecognizerViewModel::class.java)
-        speechRecognizerViewModel.getViewState().observe(this, Observer<SpeechRecognizerViewModel.ViewState> { viewState ->
-            render(viewState)
-        })
-    }
-
-    private fun render(uiOutput: SpeechRecognizerViewModel.ViewState?) {
-        if (uiOutput == null) return
-
-        textField.text = uiOutput.spokenText
-
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == REQUEST_RECORD_AUDIO_PERMISSION) {
-            speechRecognizerViewModel.permissionToRecordAudio = grantResults[0] == PackageManager.PERMISSION_GRANTED
-        }
-
-        if (speechRecognizerViewModel.permissionToRecordAudio) {
-            micButton.performClick()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            REQUEST_CODE -> {
+                //If RESULT_OK is returned...//
+                if (resultCode === Activity.RESULT_OK && null != attr.data) { //...then retrieve the ArrayList//
+                    val result: ArrayList<String> = data!!.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+                    //Update our TextView//
+                    textOutput.text = result[0]
+                }
+            }
         }
     }
 }
